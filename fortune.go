@@ -21,6 +21,10 @@ import (
 
 const VERSION = "2.0"
 
+// ---------------------------------------------------------------------------
+// Local error object that conforms to the Go error interface.
+// ---------------------------------------------------------------------------
+
 type Error struct {
         Message string
 }
@@ -29,11 +33,19 @@ func (e *Error) Error() string {
         return e.Message
 }
 
+// ---------------------------------------------------------------------------
+// Local functions
+// ---------------------------------------------------------------------------
+
+// Convenience function to print a message (printf style) to standard error
+// and exit with a non-zero exit code.
 func die(format string, args ...interface{}) {
 	os.Stderr.WriteString(fmt.Sprintf(format, args...) + "\n")
 	os.Exit(1)
 }
 
+// Given a path representing a fortune file, load the file, parse it,
+// an return an array of fortune strings.
 func readFortuneFile(fortuneFile string) ([]string, error) {
 	content, err := ioutil.ReadFile(fortuneFile)
 	var fortunes []string = nil
@@ -43,6 +55,9 @@ func readFortuneFile(fortuneFile string) ([]string, error) {
 	return fortunes, err
 }
 
+// Given a path representing a fortune file, load the file, parse it,
+// choose a random fortune, and display it to standard output. Returns
+// a Go error object on error or nil on success.
 func findAndPrint(fortuneFile string) error {
 	fortunes, err := readFortuneFile(fortuneFile)
 	if err == nil {
@@ -53,6 +68,9 @@ func findAndPrint(fortuneFile string) error {
 	return err
 }
 
+// Parse the command line arguments. For now, this is simple, because this
+// program requires very few arguments. If something more complicated is
+// needed, consider the Go "flag" module or github.com/docopt/docopt-go
 func parseArgs() (string, error) {
         prog := path.Base(os.Args[0])
         usage := fmt.Sprintf(`%s, version %s
@@ -91,12 +109,16 @@ abort.`, prog, VERSION, prog, prog)
         return fortuneFile, err
 }
 
-func main() {
+// ---------------------------------------------------------------------------
+// Main program
+// ---------------------------------------------------------------------------
 
+func main() {
         fortuneFile, err := parseArgs()
         if err != nil {
                 die(err.Error())
         }
+
 	err = findAndPrint(fortuneFile)
 	if err != nil {
 		die(err.Error())
