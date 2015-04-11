@@ -7,7 +7,7 @@ command: It selects a random fortune cookie saying from a file and displays it
 on standard output.
 
 Unlike the BSD fortune command (or my own Python version, at 
-<https://github.com/bmc/fortune>, this version does not use an index file. We 
+<https://github.com/bmc/fortune>), this version does not use an index file. We 
 have loads of memory these days, and fortunes files aren't that big, so it's 
 feasible to load the whole text file in memory, parse it on the fly, and 
 randomly choose a resulting fortune.
