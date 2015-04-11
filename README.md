@@ -14,6 +14,16 @@ randomly choose a resulting fortune.
 
 This version is written in Go, mostly because, why not?
 
+## Installation
+
+The easiest way to install this program is via the `go` command. Make sure
+your `GOPATH` is set to something, and ensure that `$GOPATH/bin` is in your
+`PATH`. Then:
+
+    go get github.com/bmc/fortune-go
+
+A program called `fortune-go` will end up in your `$GOPATH/bin` directory.
+
 ## Usage
 
     fortune [/path/to/fortune/cookie/file]
@@ -44,6 +54,9 @@ character. For example::
     %
     A man is not old until regrets take the place of dreams.
         -- John Barrymore
+
+You're more than welcome to _my_ fortune cookie file. It's over here:
+<https://github.com/bmc/fortunes>.
 
 ## License and Copyright
 
